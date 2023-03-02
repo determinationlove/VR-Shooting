@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,11 +30,13 @@ public class UIManager : MonoBehaviour
 
         if (scoreSurvey.survey == true)
             scoreSurvey.ScoreSurvey_Update();
-        
+
         if (scoreSurvey.surveyEnd == true)
         {
             UI_In(UI[3]);
             scoreSurvey.surveyEnd = false;
+            scoreSurvey.OVRraycaster.enabled = true;
+            //EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
@@ -45,12 +48,14 @@ public class UIManager : MonoBehaviour
 
         gameStart.startgame.onClick.AddListener(PlayGame);
         rank.again.onClick.AddListener(PlayAgain);
+
+        gameStart.OVRcontrol.transform.position = new Vector3(0, 2.8f, -10);
     }
 
     public void UI_In(RectTransform ui)
     {
         UI_Out();
-        ui.localPosition = new Vector3(0, 0, 0);
+        ui.localPosition = new Vector3(0, 2.5f, -5f);
     }
 
     public void UI_Out()
@@ -74,6 +79,9 @@ public class UIManager : MonoBehaviour
         gameManager.GameManager_Start();
         gameManager.Init_Instant();
         gameManager.ready = true;
+        gameStart.OVRcontrol.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        scoreSurvey.shootL.SetActive(true);
+        scoreSurvey.shootR.SetActive(true);
 
         UI_Out();
     }

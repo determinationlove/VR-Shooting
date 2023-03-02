@@ -57,7 +57,7 @@ public class Rank : MonoBehaviour
 
         for (int i = 1; i < _list.Count; i++)
         {
-            for (int j = 1; j < _list.Count - 0 - i; j++)
+            for (int j = 0; j < _list.Count - 0 - i; j++)
             {
                 if (int.Parse(_list[j]) < int.Parse(_list[j + 1]))
                 {
@@ -70,9 +70,18 @@ public class Rank : MonoBehaviour
 
         List<string> newList = new List<string>();
 
-        for (int i = 0; i < 7; i++)
+        int x = 7;
+        if(_list.Count < 7)
+            x = _list.Count;
+        for (int i = 0; i < x; i++)
         {
             newList.Add(_list[i]);
+
+            if(_list.Count < 7)
+                for(int j = 0; j < (7 - _list.Count); j++)
+                {
+                    newList.Add("0");
+                } 
         }
 
         return newList;

@@ -11,6 +11,8 @@ public class GameStart : MonoBehaviour
     public Text speed;
     public Button startgame;
 
+    public GameObject OVRcontrol;
+
     void Start()
     {
 

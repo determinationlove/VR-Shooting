@@ -31,6 +31,7 @@ public class shoot : MonoBehaviour
         if (id >= 200)
             id = 0;
 
+        /*
         if (Input.GetKeyDown(KeyCode.Z))
         {
             tempObj = bullet[id];
@@ -39,16 +40,17 @@ public class shoot : MonoBehaviour
             tempObj.transform.GetComponent<BoxCollider>().enabled = true;
             tempObj.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
         }
-        /*
+        */
+        
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             tempObj = bullet[id];
             id++;
             tempObj.transform.position = transform.position;
             tempObj.transform.GetComponent<BoxCollider>().enabled = true;
-            tempObj.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+            tempObj.GetComponent<Rigidbody>().AddForce(transform.forward * 1200);
         }
-        */
+        
     }
 
     

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+
 
 public class ScoreSurvey : MonoBehaviour
 {
@@ -13,9 +13,17 @@ public class ScoreSurvey : MonoBehaviour
     public Button[] buttons; // 所有按鈕
     public int selectedButtonIndex; // 目前選擇的按鈕索引
 
+    public GameObject shootL;
+    public GameObject shootR;
+    public OVRRaycaster OVRraycaster;
+
 
     public void ScoreSurvey_Start()
     {
+        OVRraycaster.enabled = false;
+        shootL.SetActive(false);
+        shootR.SetActive(false);
+
         selectedButtonIndex = defaultValue - 1;
         buttons[selectedButtonIndex].Select();
     }
@@ -30,14 +38,13 @@ public class ScoreSurvey : MonoBehaviour
         else
             VR_Select();
 
-        Next();
+        buttons[selectedButtonIndex].Select();
+        
     }
 
     public void VR_Select()
     {
-        float verticalInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y;
-
-        if (verticalInput > 0.5f) // 推上
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickUp)) // 推上
         {
             // 選擇上一個按鈕
             selectedButtonIndex -= 1;
@@ -46,18 +53,21 @@ public class ScoreSurvey : MonoBehaviour
                 selectedButtonIndex = buttons.Length - 1;
                 buttons[selectedButtonIndex].Select();
             }
-
+            print("蘑菇頭往上推");
         }
-        else if (verticalInput < -0.5f) // 推下
+        else if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickDown)) // 推下
         {
             // 選擇下一個按鈕
-            selectedButtonIndex += 1;
+            selectedButtonIndex += 1;       
             if (selectedButtonIndex >= buttons.Length)
             {
                 selectedButtonIndex = 0;
                 buttons[selectedButtonIndex].Select();
             }
+            print("蘑菇頭往下推");
         }
+
+        Next();
     }
 
     public void Test_Select()
@@ -87,8 +97,10 @@ public class ScoreSurvey : MonoBehaviour
         }
     }
 
-    void Next()
+    public void Next()
     {
+        print("檢查問卷");
+        /*
         if (testing)
             if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -96,11 +108,11 @@ public class ScoreSurvey : MonoBehaviour
                 surveyEnd = true;
             }
         else
+        */
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
             {
-                survey = false;
                 surveyEnd = true;
-                EventSystem.current.SetSelectedGameObject(null);
+                survey = false;   
             }
     }
 }
