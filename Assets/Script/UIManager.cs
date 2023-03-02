@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public GameManager gameManager;
     public GameSet gameSet;
 
+    public Button continueBtn;
+
 
     void Start()
     {
@@ -38,6 +40,11 @@ public class UIManager : MonoBehaviour
             scoreSurvey.OVRraycaster.enabled = true;
             //EventSystem.current.SetSelectedGameObject(null);
         }
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger) || OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger))
+        {
+            StopGame();
+        }
     }
 
     public void Init()
@@ -48,6 +55,7 @@ public class UIManager : MonoBehaviour
 
         gameStart.startgame.onClick.AddListener(PlayGame);
         rank.again.onClick.AddListener(PlayAgain);
+        continueBtn.onClick.AddListener(ContinueGame);
 
         gameStart.OVRcontrol.transform.position = new Vector3(0, 2.8f, -10);
     }
@@ -105,5 +113,17 @@ public class UIManager : MonoBehaviour
         UI_In(UI[0]);
         gameStart.slider1.interactable = true;
         gameStart.slider2.interactable = true;
+    }
+
+    public void StopGame()
+    {
+        scoreSurvey.shoot.SetActive(false);
+        UI_In(UI[1]);
+    }
+
+    public void ContinueGame()
+    {
+        scoreSurvey.shoot.SetActive(true);
+        UI_Out();
     }
 }

@@ -1845,6 +1845,7 @@ MonoBehaviour:
   scoreSurvey: {fileID: 676819113}
   rank: {fileID: 1729621889}
   gameManager: {fileID: 599916906}
+  continueBtn: {fileID: 1335212690}
 --- !u!114 &494269445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4012,7 +4013,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u904A\u6232\u66AB\u505C"
+  m_Text: "\u904A\u6232\u66AB\u505C\uFF08\u5DF2\u9396\u5B9A\u677F\u6A5F\uFF09"
 --- !u!222 &1035814379
 CanvasRenderer:
   m_ObjectHideFlags: 0
