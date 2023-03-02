@@ -13,16 +13,14 @@ public class ScoreSurvey : MonoBehaviour
     public Button[] buttons; // 所有按鈕
     public int selectedButtonIndex; // 目前選擇的按鈕索引
 
-    public GameObject shootL;
-    public GameObject shootR;
+    public GameObject shoot;
     public OVRRaycaster OVRraycaster;
 
 
     public void ScoreSurvey_Start()
     {
         OVRraycaster.enabled = false;
-        shootL.SetActive(false);
-        shootR.SetActive(false);
+        shoot.SetActive(false);
 
         selectedButtonIndex = defaultValue - 1;
         buttons[selectedButtonIndex].Select();
@@ -39,12 +37,13 @@ public class ScoreSurvey : MonoBehaviour
             VR_Select();
 
         buttons[selectedButtonIndex].Select();
-        
+
     }
 
     public void VR_Select()
     {
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickUp)) // 推上
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickUp) ||
+            OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickUp)) // 推上
         {
             // 選擇上一個按鈕
             selectedButtonIndex -= 1;
@@ -55,10 +54,11 @@ public class ScoreSurvey : MonoBehaviour
             }
             print("蘑菇頭往上推");
         }
-        else if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickDown)) // 推下
+        else if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickDown) ||
+                 OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickDown)) // 推下
         {
             // 選擇下一個按鈕
-            selectedButtonIndex += 1;       
+            selectedButtonIndex += 1;
             if (selectedButtonIndex >= buttons.Length)
             {
                 selectedButtonIndex = 0;
@@ -109,10 +109,11 @@ public class ScoreSurvey : MonoBehaviour
             }
         else
         */
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-            {
-                surveyEnd = true;
-                survey = false;   
-            }
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) ||
+            OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            surveyEnd = true;
+            survey = false;
+        }
     }
 }

@@ -80,8 +80,7 @@ public class UIManager : MonoBehaviour
         gameManager.Init_Instant();
         gameManager.ready = true;
         gameStart.OVRcontrol.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        scoreSurvey.shootL.SetActive(true);
-        scoreSurvey.shootR.SetActive(true);
+        scoreSurvey.shoot.SetActive(true);
 
         UI_Out();
     }

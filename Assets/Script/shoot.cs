@@ -5,6 +5,8 @@ using UnityEngine;
 public class shoot : MonoBehaviour
 {
     public List<GameObject> bullet;
+    public Transform FirePoint1;
+    public Transform FirePoint2;
     public Transform Pool;
     public GameObject tempObj;
     public int id = 0;
@@ -46,9 +48,18 @@ public class shoot : MonoBehaviour
         {
             tempObj = bullet[id];
             id++;
-            tempObj.transform.position = transform.position;
+            tempObj.transform.position = FirePoint1.position;
             tempObj.transform.GetComponent<BoxCollider>().enabled = true;
-            tempObj.GetComponent<Rigidbody>().AddForce(transform.forward * 1200);
+            tempObj.GetComponent<Rigidbody>().AddForce(FirePoint1.forward * 1200);
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            tempObj = bullet[id];
+            id++;
+            tempObj.transform.position = FirePoint2.position;
+            tempObj.transform.GetComponent<BoxCollider>().enabled = true;
+            tempObj.GetComponent<Rigidbody>().AddForce(FirePoint2.forward * 1200);
         }
         
     }
